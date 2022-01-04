@@ -7,7 +7,7 @@ namespace TeamAPI
     public static class Utils
     {
 
-        private static readonly List<Team> TeamList = new()
+        public static readonly List<Team> TeamList = new()
         {
             new Team
             {
