@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bogus;
+using System;
 using System.Collections.Generic;
 using TeamAPI.Models;
 
@@ -103,6 +104,32 @@ namespace TeamAPI
         {
             context.Teams.AddRange(TeamList);
             context.SaveChanges();
+        }
+
+        public static List<Team> GetTeamListRandom(int qttObjects)
+        {
+            List<Team> teamList = new();
+            var faker = new Faker("pt_BR");
+            var stateList = new List<string> { "SP", "PR"};
+
+            for (int i=0; i < qttObjects; i++)
+            {
+                var team = new Team
+                {
+                    Id = faker.Random.Int(9, 999999),
+                    CreateDate = DateTime.Now.Date,
+                    Name = faker.Company.CompanyName(),
+                    Initials = faker.Random.String(3),
+                    NickName = faker.Company.CompanyName(),
+                    City = faker.Address.City(),
+                    State = faker.Random.ListItem(stateList),
+                    CreationYear = faker.Random.Int(1900, 2022)
+                };
+
+                teamList.Add(team);
+            }
+
+            return teamList;
         }
 
     }
